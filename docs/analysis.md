@@ -1,6 +1,27 @@
 # Análisis de `myagents/` — Fase 1
 
-Fecha: 2026-11-12 · Estado: **pendiente de aprobación**
+Fecha: 2026-11-12 · Estado: **aprobado con cambios** (ver «Decisiones» abajo y `docs/comparativa.md`)
+
+## Decisiones (2026-11-12)
+
+| Duda | Decisión |
+|---|---|
+| D1 | Síntesis propia en español de las skills de terceros; los originales se citan en el README |
+| D2 | Marketplace `ai-bank`, propietario QudeCode |
+| D3 | Dos plugins de stack: `stack-nestjs` y `stack-react` |
+| D4 | Un único `revisor-codigo` con modos `correccion` y `calidad` |
+| D5 | `init-context`, `retro` y `promocionar` como skills de invocación manual; sin `commands/` |
+| D6 | Se descartan `documentalista`, `wiki` y `ux-pagina` tal como están; los criterios de `ux-pagina` se rescatan en `dev:revisor-ux` |
+| D7 | Se añade la skill `promocionar` |
+| D8 | P2 viene del proyecto «RTS» |
+| Taxonomía | **Plugins por tipo**: `core` (base y gestión), `dev` (desarrollo), `meta` (meta), `stack-*` (conocimiento de stack). Los agentes de dominio («utilidades») se quedan en sus proyectos |
+| Nuevos agentes | `dev:arquitecto` (redacta el plan) y `dev:revisor-ux` |
+| Implementación | Por defecto en la sesión principal; `dev:implementador` solo en paralelo con un plan cerrado |
+| Revisores | Solo lectura impuesta con herramientas (sin Bash) |
+| Mejora continua | Propuestas al banco como issues de GitHub con la etiqueta `propuesta`; evals de regresión |
+| Workflows | `revisar-plan`, `revisar-cambios`, `mejorar-arquitectura` (sustituye a la skill) y `auditar-proyecto` |
+
+Las secciones 6 y 7 de abajo son la propuesta inicial; la estructura vigente es la del `README.md`.
 
 ## 0. Formato vigente verificado
 
