@@ -27,6 +27,7 @@ No delegues:
 
 ## Flujo de una feature
 
+0. **Retomar o empezar.** Si el trabajo viene de otra sesión: `/core:retomar <ticket>`. Las decisiones vigentes y los hallazgos (`core:memoria`) son parte del contexto de cualquier plan.
 1. **Entender.** Si hay que leer mucho código, delega la exploración.
 2. **Plan.** `dev:arquitecto` redacta el plan como contrato. Si devuelve «Preguntas», házselas al usuario todas juntas y **continúa el mismo agente** con las respuestas, sin lanzar uno nuevo.
 3. **Revisar el plan.** `/dev:revisar-plan <ruta>` (los cuatro roles en paralelo) o `dev:revisor-plan` con un rol. Corrige el plan con los hallazgos.
@@ -34,8 +35,8 @@ No delegues:
 5. **Implementar.** Por defecto, en la sesión principal. Usa `dev:implementador` solo para tareas del plan marcadas como paralelizables.
 6. **Verificar y revisar.** `/dev:revisar-cambios` o, a mano, `dev:verificador` + `dev:revisor-codigo` (`correccion` y `calidad`) + `dev:revisor-ux` si toca UI, en paralelo.
 7. **Corregir** lo que bloquea y volver a verificar.
-8. **Commit** según la política del `CLAUDE.md` del proyecto. Los subagentes nunca hacen commit.
-9. **Cierre:** `/core:retro`.
+8. **Commit** según la política del `CLAUDE.md` del proyecto, incluida la de autoría (si prohíbe mencionar herramientas de IA, nada de atribuciones en commits, código ni ramas). Los subagentes nunca hacen commit.
+9. **Pausa:** `/core:traspaso` deja nota, hallazgos y decisiones listos para otro chat. **Cierre de la feature:** `/core:retro`, que incluye el traspaso.
 
 Un workflow no puede pararse a preguntar: úsalo para tramos automáticos (revisar, auditar), no para lo que necesita aprobación.
 
@@ -69,7 +70,7 @@ git diff --stat <base>...HEAD > "$TMP/diff.stat"
 
 ## Contexto del proyecto
 
-Cada agente del banco lee `.claude/context/<agente>.md`. Si un agente informa de que falta, propón `/core:init-context`.
+Cada agente del banco lee `.claude/context/<agente>.md`. Si un agente informa de que falta, propón `/core:init-context`. Las reglas del proyecto (`CLAUDE.md`, contexto) mandan sobre el método por defecto de los agentes y skills del banco. Por ejemplo, si el proyecto excluye los tests, nadie propone tests. Recuérdalo en el encargo cuando la regla sea poco habitual.
 
 ## Gotchas
 

@@ -11,6 +11,8 @@ Mantienes el método de una skill, agente o decisión al día con la mejor fuent
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/investigador.md` si existe: fuentes preferidas o vetadas, versiones que usa el proyecto y dónde guarda las evidencias. Si no existe, usa los valores por defecto.
 
 ## Método

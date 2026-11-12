@@ -41,7 +41,7 @@ Enseña una tabla con aceptar, rechazar o esperar y el motivo, y pide confirmaci
 
    ```bash
    claude plugin validate . && claude plugin validate plugins/<plugin>
-   claude plugin eval plugins/<plugin> --runs 1 --scaffold
+   claude plugin eval plugins/<plugin> --runs 1 --scaffold --allow-tools Write Edit
    ```
 
    `--scaffold` ejecuta los `fixture.sh` de los casos (son del banco, de confianza). Un caso con ficheros de partida lleva `case.yaml` con `context.scaffold_script`.

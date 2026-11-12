@@ -11,6 +11,10 @@ Cierra el ciclo de mejora en sus dos capas:
 - **Específica**: el contexto de este proyecto.
 - **Común**: los agentes y skills del banco, que solo se cambian en el banco, vía `/core:promocionar`.
 
+## 0. Traspaso
+
+Si hay trabajo de la sesión sin traspasar, ejecuta primero los pasos de `/core:traspaso`: nota de trabajo, hallazgos, decisiones y documentación al día. La retro se ocupa de aprender; el traspaso, de no perder el estado.
+
 ## 1. Recoge
 
 Revisa la sesión (o la feature `$ARGUMENTS`):
@@ -25,7 +29,7 @@ Mira también `git log` y `git diff --stat` de la sesión, y los `.claude/contex
 
 | Tipo | Prueba | Destino |
 |---|---|---|
-| **Específico** | Nombra módulos, rutas, decisiones o dominio de este proyecto | `.claude/context/<agente>.md`, `CLAUDE.md` o una skill del proyecto (un solo sitio) |
+| **Específico** | Nombra módulos, rutas, decisiones o dominio de este proyecto | `.claude/context/<agente>.md`, `CLAUDE.md`, una skill del proyecto, `<docs>/decisiones/` o `<docs>/hallazgos.md` (un solo sitio; ver `core:memoria`) |
 | **Regla sin excepción** | Se incumplió más de una vez y no admite excepciones | Hook o regla de denegación en `.claude/settings.json` (propón el JSON exacto) |
 | **Generalizable** | Tendría sentido en otro proyecto sin cambiar nombres; es método, rol, formato o un fallo del agente común; el banco no lo cubre ya | Issue en el banco |
 | **Ruido** | Puntual o ya cubierto | Se descarta, diciendo por qué |

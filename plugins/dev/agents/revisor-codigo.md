@@ -11,6 +11,8 @@ Revisas código que no escribiste, como si el proyecto lo hubiera escrito una so
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/revisor-codigo.md`:
 - convenciones que se revisan;
 - modelo de seguridad y permisos;
@@ -43,7 +45,7 @@ Si falta el diff, no lo reconstruyas: devuelve «Falta el diff (ver `core:orques
 4. desajustes de contrato entre capas;
 5. seguridad: validación de entrada, inyección, secretos en el código, ficheros subidos;
 6. lógica nueva sin tests;
-7. violaciones de las convenciones del contexto.
+7. violaciones de las convenciones del contexto y de las **decisiones vigentes** del proyecto (`<docs>/decisiones/`, ver `core:memoria`).
 
 Cada hallazgo con el escenario concreto que falla.
 

@@ -10,7 +10,7 @@ Banco personal de agentes, skills y workflows para Claude Code, distribuido como
 
 | Plugin | Tipo | Componentes |
 |---|---|---|
-| `core` | Base y gestión | Skills: `orquestacion`, `/core:init-context`, `/core:retro`, `/core:promocionar` |
+| `core` | Base y gestión | Skills: `orquestacion`, `memoria`, `/core:init-context`, `/core:retomar`, `/core:traspaso`, `/core:retro`, `/core:promocionar` |
 | `dev` | Desarrollo | Agentes: `arquitecto`, `revisor-plan`, `implementador`, `verificador`, `revisor-codigo` (modos `correccion` y `calidad`), `revisor-ux`. Skills: `diseno-codigo`, `modelo-dominio`. Workflows: `/dev:revisar-plan`, `/dev:revisar-cambios`, `/dev:mejorar-arquitectura` |
 | `meta` | Meta | Agentes: `guardian`, `arquitecto-agentes`, `investigador`. Workflow: `/meta:auditar-proyecto` |
 | `stack-nestjs` | Stack | Skills: `nestjs-backend`, `typeorm-datos` |
@@ -21,9 +21,22 @@ Banco personal de agentes, skills y workflows para Claude Code, distribuido como
 Flujo de una feature (detalle en la skill `core:orquestacion`):
 
 ```
-dev:arquitecto (plan como contrato) → /dev:revisar-plan → aprobación → implementar (sesión principal;
-dev:implementador solo en paralelo) → /dev:revisar-cambios → commit con aprobación → /core:retro
+/core:retomar → dev:arquitecto (plan como contrato) → /dev:revisar-plan → aprobación → implementar (sesión principal;
+dev:implementador solo en paralelo) → /dev:revisar-cambios → commit con aprobación → /core:traspaso | /core:retro
 ```
+
+## Memoria del proyecto
+
+Para que nada se pierda entre sesiones y las decisiones se mantengan coherentes en el tiempo (skill `core:memoria`), cada proyecto tiene en su carpeta de documentación (por defecto `docs/`; puede estar fuera de git):
+
+| Qué | Dónde | Regla |
+|---|---|---|
+| Decisiones | `decisiones/NNNN-slug.md` + índice | Una sola serie (las de peso, «Tipo: ADR»). No se reescriben: se **sustituyen**, para ver cómo se afina el criterio |
+| Hallazgos verificados | `hallazgos.md` | Solo se añaden entradas, cada una con evidencia; lo que deja de ser cierto se tacha |
+| Notas de trabajo | `notas/<ticket>.md` | Estado actual para retomar: `/core:traspaso` al pausar, `/core:retomar` al volver |
+| Glosario y planes | `GLOSSARY.md`, `plans/` | `dev:modelo-dominio`, `dev:arquitecto` |
+
+Las preferencias personales siguen en la auto memory de Claude (local). Los agentes respetan las decisiones vigentes, y `/meta:auditar-proyecto` detecta documentación desfasada.
 
 ## Usar el banco en un proyecto
 
@@ -78,7 +91,7 @@ Preparación del repo del banco (una vez): `gh label create propuesta --repo Qud
 claude plugin validate .                         # marketplace
 claude plugin validate plugins/<plugin>          # cada plugin
 claude --plugin-dir plugins/core --plugin-dir plugins/dev --plugin-dir plugins/meta   # probar sin instalar
-claude plugin eval plugins/<plugin> --runs 1 --scaffold   # evals (consumen tokens)
+claude plugin eval plugins/<plugin> --runs 1 --scaffold --allow-tools Write Edit   # evals (consumen tokens)
 ```
 
 Las reglas para escribir agentes, skills, workflows y evals están en [`docs/conventions.md`](docs/conventions.md). Cómo se llegó a este diseño: [`docs/analysis.md`](docs/analysis.md) y [`docs/comparativa.md`](docs/comparativa.md).

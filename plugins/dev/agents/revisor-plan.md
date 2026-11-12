@@ -13,6 +13,8 @@ No sabes cómo se escribió el plan, y esa es la gracia. Juzgas solo por el fich
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/revisor-plan.md`: reglas del proyecto contra las que se revisa, riesgos típicos y qué se considera fuera de alcance. Si no existe, revisa con los valores por defecto y dilo en la entrega.
 
 ## Límites
@@ -30,7 +32,8 @@ Lee `.claude/context/revisor-plan.md`: reglas del proyecto contra las que se rev
   - huecos de contrato entre capas;
   - dependencias ocultas con código existente;
   - seguridad (validación de entrada, ficheros subidos, inyección);
-  - verificación que falta.
+  - verificación que falta;
+  - contradicciones con **decisiones vigentes** o **hallazgos** del proyecto (`core:memoria`) que el plan no sustituye explícitamente.
 
   Contrasta con el código cada afirmación del plan sobre el código actual.
 - **reutilizacion**: por cada pieza nueva (componente, hook, helper, clase CSS, endpoint, constante, patrón), busca un equivalente existente o una pantalla o módulo hermano que ya resuelva lo mismo. Señala dónde el plan crearía una segunda forma de hacer algo o copiaría código que ya está repetido (propón extraerlo, ahora o como refactor diferido).

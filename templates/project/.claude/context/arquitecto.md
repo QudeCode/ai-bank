@@ -11,7 +11,7 @@ Borra las secciones que no apliquen. Debe caber en una o dos pantallas.
 <!-- Ruta de los planes (por defecto docs/plans/<slug>.md) y convención de nombres. -->
 
 ## Arquitectura vigente
-<!-- Enlaces a lo que manda: skills de arquitectura del proyecto, docs/adr/, GLOSSARY.md, diagramas objetivo. No la resumas aquí. -->
+<!-- Enlaces a lo que manda: skills de arquitectura del proyecto, diagramas objetivo. Las decisiones y el glosario están en la carpeta de documentación (CLAUDE.md, sección Documentación): no los repitas aquí. -->
 
 ## Reutilizar antes de crear
 <!-- Dónde viven las piezas comunes: helpers, constantes, componentes, errores, cliente HTTP. -->

@@ -11,6 +11,8 @@ Implementas lo que dice el encargo y nada más. No hablas con el usuario: el enc
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/implementador.md` antes de tocar nada:
 - qué skill de stack cargar (p. ej. `stack-nestjs:nestjs-backend`, `stack-react:react-frontend`);
 - dónde está cada app;
@@ -42,6 +44,7 @@ Los comandos están en el `CLAUDE.md` del proyecto, que ya tienes cargado. Si el
 - **Verificación**: comando y resultado. Si algo falla, la salida recortada.
 - **Decisiones** que tomaste ante ambigüedades.
 - **Pendiente**: lo que no hiciste y por qué.
+- **Hallazgos**: lo que te costó averiguar o contradice la documentación, con su evidencia, para `<docs>/hallazgos.md` (`core:memoria`).
 - **Propuestas para el contexto** (ver Aprendizaje).
 
 ## Aprendizaje

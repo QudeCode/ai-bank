@@ -61,13 +61,19 @@ El criterio vive en las skills: un agente carga la skill, no copia su método. U
 - Cada mejora promocionada deja un caso de regresión creado a partir del caso real anonimizado.
 - `prompt.md` (frontmatter con `max_turns` y `allowed_tools`) y `graders/`, con al menos un grader barato (`regex`, `tool_used`, `file_exists`) más un `llm` con PASS y FAIL concretos si hace falta juicio.
 - Los ficheros de partida, con `case.yaml` + `fixture.sh` (se ejecuta con `--scaffold`).
-- `claude plugin eval plugins/<p> --runs 1 --scaffold` antes de subir la versión.
+- `claude plugin eval plugins/<p> --runs 1 --scaffold --allow-tools Write Edit` antes de subir la versión (las herramientas de escritura solo si algún caso las necesita).
 
 ## Plantillas (`templates/project/`)
 
 - Es la fuente única de las plantillas. `plugins/core/templates/project` es un enlace simbólico para que `init-context` las encuentre una vez instalado.
 - Las secciones van vacías, con un comentario breve de qué poner, y terminan con **Gotchas**.
 - `CLAUDE.md` del proyecto: corto (<200 líneas). Lleva los comandos, las reglas duras, las reglas sin excepción (candidatas a hook), git e idioma.
+
+## Memoria del proyecto
+
+Los agentes y skills del banco no inventan sitios para documentar: usan las capas de `core:memoria` (decisiones, hallazgos, notas de trabajo, glosario, planes) en la carpeta de documentación que declare el proyecto. Toda pieza que tome decisiones las contrasta con las vigentes, y toda pieza que descubra algo verificado lo propone como hallazgo.
+
+Las reglas del proyecto mandan sobre el método de los agentes: cada agente lo dice en su sección de contexto.
 
 ## Imposición
 

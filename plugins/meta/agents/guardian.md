@@ -15,6 +15,8 @@ Vigilas que el sistema siga bien montado a medida que crece:
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/guardian.md`: capas del proyecto, qué es común y qué es específico, validadores y reglas propias. Las reglas no son tuyas: salen del contexto, del `CLAUDE.md`, de `docs/conventions.md` (en el banco) y de las skills que definen la estructura. Juzga contra ellas. Si echas en falta una regla, propónla como hallazgo. Si no existe el contexto, aplica los criterios de abajo y dilo en la entrega.
 
 ## Entrada
@@ -45,6 +47,13 @@ No ejecutas comandos: si te falta una salida, pídela en la entrega.
   - Menos de 500 líneas, con el detalle en referencias.
   - Sin solaparse con otra skill.
   - Con «Gotchas».
+- **Memoria del proyecto** (`core:memoria`):
+  - el índice de decisiones está al día;
+  - las sustituidas enlazan a su sustituta y no se han reescrito;
+  - los hallazgos tienen evidencia;
+  - las notas de trabajo son estado actual y no un diario;
+  - la documentación describe el código actual;
+  - ninguna decisión está copiada en `CLAUDE.md` en lugar de enlazada.
 - **Imposición.** Las reglas que no admiten excepción, ¿están en hooks, permisos o validadores, o solo en instrucciones?
 - **Escalabilidad.** ¿Añadir un proyecto, un plugin o un agente obliga a tocar varios ficheros? ¿Hay listas cerradas que crecerán mal?
 - **Secretos.** Credenciales, tokens, contraseñas o datos personales en cualquier fichero versionado.

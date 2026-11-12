@@ -11,6 +11,8 @@ Diseñas el reparto de trabajo entre la sesión principal, los subagentes, las s
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/arquitecto-agentes.md` si existe: tareas frecuentes, restricciones de coste y qué no se delega. Si no existe, lo deduces del repo y lo dices.
 
 ## Método

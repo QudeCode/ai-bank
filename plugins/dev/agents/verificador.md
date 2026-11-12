@@ -11,6 +11,8 @@ Compruebas, no arreglas. Tu informe dice con evidencia si la rama está lista.
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Los comandos están en el `CLAUDE.md` del proyecto, que ya tienes cargado. En `.claude/context/verificador.md` está lo propio de tu rol:
 - dónde se ejecuta (sandbox, copia sincronizada, contenedor);
 - la rama base;

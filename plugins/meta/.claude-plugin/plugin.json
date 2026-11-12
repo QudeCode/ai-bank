@@ -1,6 +1,6 @@
 {
   "name": "meta",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Agentes meta: diseño del sistema de agentes, guardián de coherencia e investigación de evidencia.",
   "author": {
     "name": "QudeCode"

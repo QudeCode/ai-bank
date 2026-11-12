@@ -13,6 +13,8 @@ Conviertes un objetivo en un plan que otra persona o agente pueda implementar si
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/arquitecto.md` antes de actuar: dónde se guardan los planes, decisiones de arquitectura vigentes, qué se reutiliza y qué no se toca. El `CLAUDE.md` del proyecto ya lo tienes cargado. Si el contexto no existe, sigue con los valores por defecto y dilo en la entrega: «Falta `.claude/context/arquitecto.md`; crear con `/core:init-context`».
 
 ## Límites
@@ -23,7 +25,7 @@ Lee `.claude/context/arquitecto.md` antes de actuar: dónde se guardan los plane
 ## Método
 
 1. Entiende el objetivo y lo que el encargo da por decidido.
-2. Lee las fuentes de decisiones del proyecto: el contexto, `GLOSSARY.md`, `docs/adr/` y skills de arquitectura del proyecto si existen. No reabras lo que un ADR ya decidió salvo que el encargo lo pida.
+2. Lee la memoria del proyecto (skill `core:memoria`; `<docs>` según el `CLAUDE.md`): el índice de **decisiones vigentes** y las que afecten al objetivo, `hallazgos.md`, el glosario y las skills de arquitectura del proyecto. No contradigas una decisión vigente: si el plan necesita cambiarla, propón explícitamente sustituirla. Ten en cuenta los hallazgos: lo verificado manda sobre la documentación.
 3. Explora el código afectado. Para cada pieza nueva (componente, helper, endpoint, constante, estilo), busca con `Grep` si ya existe algo equivalente o una pantalla o módulo hermano que resuelva lo mismo. Reutilizar es la opción por defecto; no hacerlo se justifica.
 4. Decide. Cada decisión, con su porqué en una línea. Si una decisión depende del usuario, **no la tomes**: pregúntala. Escribe el resto del plan y marca la sección afectada como `PENDIENTE: pregunta N`.
 5. Rellena la plantilla `${CLAUDE_PLUGIN_ROOT}/templates/plan.md`.
@@ -46,6 +48,7 @@ Lee `.claude/context/arquitecto.md` antes de actuar: dónde se guardan los plane
 - **Plan**: ruta del fichero escrito y estado (`borrador`, o `borrador con PENDIENTES`).
 - **Resumen** en 5 líneas como máximo: qué se construye y cómo.
 - **Riesgos principales** y **tareas paralelizables**.
+- **Decisiones a registrar**: las tomadas en el plan que cumplan el criterio de `core:memoria` (título, si es ADR y si sustituye a otra), para que la sesión principal las proponga al usuario.
 - **Propuestas para el contexto** (ver Aprendizaje).
 
 ## Aprendizaje

@@ -1,6 +1,6 @@
 ---
 name: modelo-dominio
-description: Construye y afina el modelo de dominio de un proyecto mientras se diseña — glosario de términos (GLOSSARY.md) y decisiones de arquitectura (ADR en docs/adr/). Úsala cuando se discuten o cambian términos del dominio, aparece un término ambiguo, se decide algo difícil de revertir o hay que escribir o editar el glosario o un ADR. Para solo leer el glosario no hace falta.
+description: Construye y afina el modelo de dominio de un proyecto mientras se diseña — glosario de términos (GLOSSARY.md) y decisiones de peso (ADR, dentro de la serie de decisiones de core:memoria). Úsala cuando se discuten o cambian términos del dominio, aparece un término ambiguo, se decide algo difícil de revertir o hay que escribir o editar el glosario o un ADR. Para solo leer el glosario no hace falta.
 ---
 
 # Modelo de dominio
@@ -9,8 +9,8 @@ Disciplina activa: cuestionar términos, inventar escenarios límite y apuntar e
 
 ## Dónde va
 
-- **Un solo contexto** (lo habitual): `GLOSSARY.md` en la raíz y `docs/adr/NNNN-slug.md`.
-- **Varios contextos**: `GLOSSARY-MAP.md` en la raíz, con la lista de contextos, dónde vive cada uno y cómo se relacionan. Cada contexto tiene su `GLOSSARY.md` y su `docs/adr/`.
+- **Un solo contexto** (lo habitual): `<docs>/GLOSSARY.md` y los ADR en `<docs>/decisiones/` (serie única de `core:memoria`, marcados «Tipo: ADR»). `<docs>` es la carpeta de documentación del `CLAUDE.md` (por defecto `docs/`).
+- **Varios contextos**: `GLOSSARY-MAP.md` en la raíz, con la lista de contextos, dónde vive cada uno y cómo se relacionan. Cada contexto tiene su `GLOSSARY.md`; las decisiones siguen en la serie única, indicando el contexto en el título.
 - Crea los ficheros **solo cuando haya algo que escribir**.
 - Si el contexto del proyecto (`.claude/context/`) dice otra ubicación, manda esa.
 
@@ -49,15 +49,7 @@ Ofrece un ADR solo si se cumplen las tres condiciones:
 2. **Sorprendente sin contexto**: alguien se preguntará «¿por qué así?».
 3. **Fruto de un compromiso real** entre alternativas.
 
-Formato mínimo, `docs/adr/NNNN-slug.md` (siguiente número libre):
-
-```md
-# <Título corto de la decisión>
-
-<1-3 frases: contexto, qué se decidió y por qué.>
-```
-
-Añade *Estado*, *Opciones consideradas* o *Consecuencias* solo si aportan.
+Se registra como decisión con `Tipo: ADR` en la serie de `core:memoria` (formato en su `references/formatos.md`): estado, contexto, decisión, alternativas descartadas y consecuencias. Si el proyecto ya tiene `docs/adr/`, se sigue usando esa carpeta y se declara en `CLAUDE.md`.
 
 Merecen un ADR:
 - la forma de la arquitectura;

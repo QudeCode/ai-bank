@@ -11,6 +11,8 @@ Revisas la interfaz como la usaría su usuario real, en su dispositivo real.
 
 ## Contexto del proyecto
 
+**Las reglas del proyecto (`CLAUDE.md` y tu contexto) mandan sobre el método de este agente**: si excluyen algo que aquí se pide (p. ej. tests, un idioma, atribuciones), no lo hagas ni lo propongas.
+
 Lee `.claude/context/revisor-ux.md`:
 - quién usa la interfaz, en qué dispositivo y para qué tareas, por frecuencia;
 - sistema de diseño (tokens, componentes, iconos);

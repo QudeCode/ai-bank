@@ -11,9 +11,10 @@ export const meta = {
 
 const INVENTARIO = {
   type: 'object',
-  required: ['contextos', 'agentes_sin_contexto', 'claude_md'],
+  required: ['contextos', 'memoria', 'agentes_sin_contexto', 'claude_md'],
   properties: {
     contextos: { type: 'array', items: { type: 'string' }, description: 'Rutas de .claude/context/*.md' },
+    memoria: { type: 'array', items: { type: 'string' }, description: 'Rutas de la memoria del proyecto: índice de decisiones, hallazgos.md, notas de trabajo abiertas, GLOSSARY.md' },
     agentes_sin_contexto: { type: 'array', items: { type: 'string' }, description: 'Agentes del banco de los plugins activos sin .claude/context/<agente>.md' },
     claude_md: { type: 'string', description: 'Ruta de CLAUDE.md o vacío si no existe' },
   },
@@ -44,6 +45,7 @@ phase('Inventario')
 const inv = await agent(
   `Haz inventario del contexto específico de este proyecto sin modificar nada:
 - rutas de CLAUDE.md y de .claude/context/*.md;
+- rutas de la memoria del proyecto en la carpeta de documentación que declare CLAUDE.md (por defecto docs/, puede estar fuera de git): decisiones/README.md, hallazgos.md, notas/*.md abiertas (no notas/archivo/) y GLOSSARY.md;
 - plugins activos del marketplace ai-bank en .claude/settings.json (enabledPlugins);
 - agentes de esos plugins que no tienen .claude/context/<agente>.md. Los agentes son:
   - dev: arquitecto, revisor-plan, implementador, verificador, revisor-codigo, revisor-ux;
@@ -52,7 +54,7 @@ const inv = await agent(
 )
 if (!inv) throw new Error('No se pudo hacer el inventario')
 
-const ficheros = [inv.claude_md, ...inv.contextos].filter(Boolean)
+const ficheros = [inv.claude_md, ...inv.contextos, ...(inv.memoria || [])].filter(Boolean)
 if (!ficheros.length) return 'El proyecto no tiene CLAUDE.md ni .claude/context/. Ejecuta /core:init-context.'
 
 phase('Contrastar')
@@ -63,6 +65,11 @@ const [derivas, guardian] = await Promise.all([
 - las rutas y los ficheros citados existen;
 - la rama base, las versiones y las herramientas coinciden;
 - las convenciones descritas se siguen en el código reciente (git log -20 y muestra de ficheros).
+Si es memoria del proyecto (skill core:memoria):
+- el índice de decisiones cuadra con los ficheros y estados;
+- las decisiones aceptadas siguen cumpliéndose en el código; si no, ¿falta una que las sustituya?
+- los hallazgos siguen siendo ciertos;
+- las notas de trabajo cuadran con git (rama, commits, ficheros sin commit).
 Señala también:
 - datos duplicados con CLAUDE.md u otros contextos (deben vivir en un solo sitio);
 - lo que Claude deduciría leyendo el código (sobra);
