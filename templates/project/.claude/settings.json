@@ -1,0 +1,24 @@
+{
+  "extraKnownMarketplaces": {
+    "ai-bank": {
+      "source": {
+        "source": "github",
+        "repo": "QudeCode/ai-bank"
+      },
+      "autoUpdate": true
+    }
+  },
+  "enabledPlugins": {
+    "core@ai-bank": true,
+    "dev@ai-bank": true,
+    "meta@ai-bank": true,
+    "stack-nestjs@ai-bank": false,
+    "stack-react@ai-bank": false
+  },
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}
