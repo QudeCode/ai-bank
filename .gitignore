@@ -3,3 +3,6 @@ myagents/
 .DS_Store
 # Resultados de claude plugin eval
 plugins/*/evals/results/
+# Certificados de la red corporativa (ver .devcontainer/certificados/LEEME.txt)
+.devcontainer/certificados/*
+!.devcontainer/certificados/LEEME.txt

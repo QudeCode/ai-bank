@@ -1,0 +1,28 @@
+{
+  // Entorno: Node 22, Claude Code y GitHub CLI.
+  "name": "ai-bank",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
+  "features": {
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "remoteUser": "node",
+  "mounts": [
+    // Sesión y ajustes de Claude Code: sobreviven a las reconstrucciones.
+    "source=ai-bank-claude-${devcontainerId},target=/home/node/.claude,type=volume",
+    // Sesión de GitHub CLI.
+    "source=ai-bank-gh-${devcontainerId},target=/home/node/.config/gh,type=volume"
+  ],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/node/.claude",
+    // Node usa el almacén del sistema, donde post-create.sh añade los certificados corporativos.
+    "NODE_EXTRA_CA_CERTS": "/etc/ssl/certs/ca-certificates.crt",
+    "TZ": "Europe/Madrid"
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": ["esbenp.prettier-vscode", "bierner.markdown-mermaid"]
+    }
+  }
+}

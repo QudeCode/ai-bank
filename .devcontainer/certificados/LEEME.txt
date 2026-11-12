@@ -1,0 +1,1 @@
+# Certificados de la red corporativa (.crt, formato PEM). No se versionan.
