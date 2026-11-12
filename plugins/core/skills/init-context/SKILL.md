@@ -48,7 +48,12 @@ Plantillas:
    - las convenciones de commit (formato y política de autoría);
    - dónde están las piezas reutilizables.
 5. **Reglas que mandan sobre el banco.** Busca en `CLAUDE.md` reglas que contradigan el método por defecto de los agentes (p. ej. «sin tests», «sin atribución de IA», un idioma, una plataforma fuera de alcance). Reflejalas en los contextos de los agentes afectados (implementador, revisor-codigo, revisor-plan, verificador) para que no las incumplan.
-6. **Skills duplicadas.** Si `.claude/skills/` (o `.agents/skills/`) contiene skills que cubren lo mismo que el banco (diseño de código, refactor, clean code, glosario y ADR, mejora de arquitectura), propone quitarlas a favor de `dev:diseno-codigo` y `dev:modelo-dominio`. Indica qué se perdería, si algo, y conserva lo propio del proyecto.
+6. **Skills duplicadas.** Si `.claude/skills/` (o `.agents/skills/`) contiene skills que cubren lo mismo que el banco (diseño de código, refactor, clean code, glosario y ADR, mejora de arquitectura), propone quitarlas a favor de los equivalentes del banco:
+   - diseño, refactor y clean code → `dev:diseno-codigo`;
+   - glosario y ADR → `dev:modelo-dominio` + `core:memoria`;
+   - mejora de arquitectura → el workflow `/dev:mejorar-arquitectura`.
+
+   Indica qué se perdería, si algo, y conserva lo propio del proyecto. Si `.claude/` está fuera de git, propón archivarlas (p. ej. `.claude/skills-archive/`) en lugar de borrarlas.
 7. **Rellena cada plantilla** solo con lo que puedas comprobar, citando de dónde sale (`(de package.json)`). Lo que no sepas, déjalo como `<!-- PENDIENTE: … -->` y apúntalo como pregunta. Borra las secciones que no apliquen. Los comandos van al `CLAUDE.md`; los contextos los enlazan.
 8. **Stack.** Si detectas NestJS/TypeORM o React, propón activar `stack-nestjs@ai-bank` o `stack-react@ai-bank` y dilo en los contextos de `implementador` y `revisor-codigo`.
 9. **Enseña el borrador** antes de escribir:
