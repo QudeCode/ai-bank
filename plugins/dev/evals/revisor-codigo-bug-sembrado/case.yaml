@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: revisor-codigo-bug-sembrado
+context:
+  scaffold_script: fixture.sh

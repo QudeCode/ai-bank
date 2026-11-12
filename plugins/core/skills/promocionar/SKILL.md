@@ -41,8 +41,10 @@ Enseña una tabla con aceptar, rechazar o esperar y el motivo, y pide confirmaci
 
    ```bash
    claude plugin validate . && claude plugin validate plugins/<plugin>
-   claude plugin eval plugins/<plugin> --runs 1
+   claude plugin eval plugins/<plugin> --runs 1 --scaffold
    ```
+
+   `--scaffold` ejecuta los `fixture.sh` de los casos (son del banco, de confianza). Un caso con ficheros de partida lleva `case.yaml` con `context.scaffold_script`.
 
    Los evals gastan tokens: avisa del alcance antes de lanzarlos. Si un eval que antes pasaba falla, el cambio no entra.
 4. Revisión: lanza `meta:guardian` con el diff en un fichero (ver `core:orquestacion`).

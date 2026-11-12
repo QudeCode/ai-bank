@@ -1,3 +1,5 @@
 # Material en bruto: contiene secretos y datos de cliente. Nunca se sube.
 myagents/
 .DS_Store
+# Resultados de claude plugin eval
+plugins/*/evals/results/
