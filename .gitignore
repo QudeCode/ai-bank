@@ -6,3 +6,5 @@ plugins/*/evals/results/
 # Certificados de la red corporativa (ver .devcontainer/certificados/LEEME.txt)
 .devcontainer/certificados/*
 !.devcontainer/certificados/LEEME.txt
+# Proyectos reales para pruebas locales (de otras organizaciones). Nunca se suben.
+projects/
