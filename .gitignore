@@ -1,0 +1,3 @@
+# Material en bruto: contiene secretos y datos de cliente. Nunca se sube.
+myagents/
+.DS_Store
