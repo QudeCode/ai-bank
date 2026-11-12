@@ -56,7 +56,7 @@ const informe = await agent(
 - Ordena: Bloquea, Conviene, Sugerencia. Cada hallazgo: sección, archivo:línea si lo hay, problema y resolución.
 - Empieza con la reformulación del rol explicar (si existe) en 3 líneas como máximo.
 - Termina con una línea: «Plan listo para aprobar» o «Pendiente: N hallazgos que bloquean».
-- No añadas hallazgos propios.
+- No añadas hallazgos propios y omite los que no piden ningún cambio.
 ${caidos.length ? `- Avisa de que estos roles no devolvieron resultado: ${caidos.join(', ')}.` : ''}
 
 Hallazgos (JSON):

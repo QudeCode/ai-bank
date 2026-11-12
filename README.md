@@ -16,7 +16,7 @@ Banco personal de agentes, skills y workflows para Claude Code, distribuido como
 | `stack-nestjs` | Stack | Skills: `nestjs-backend`, `typeorm-datos` |
 | `stack-react` | Stack | Skill: `react-frontend` |
 
-`dev` y `meta` dependen de `core`. Los agentes se invocan con prefijo (`dev:revisor-codigo`, o `@agent-dev:revisor-codigo`).
+`dev` y `meta` no declaran dependencia de `core` (rompería los evals aislados), pero lo usan: actívalos juntos, como hace la plantilla. Los agentes se invocan con prefijo (`dev:revisor-codigo`, o `@agent-dev:revisor-codigo`).
 
 Flujo de una feature (detalle en la skill `core:orquestacion`):
 

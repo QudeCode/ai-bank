@@ -2,8 +2,13 @@
   "name": "dev",
   "version": "0.1.0",
   "description": "Agentes, skills y workflows de desarrollo: planificar, revisar planes, implementar, verificar y revisar código y UX.",
-  "author": { "name": "QudeCode" },
+  "author": {
+    "name": "QudeCode"
+  },
   "repository": "https://github.com/QudeCode/ai-bank",
-  "keywords": ["desarrollo", "revision", "plan"],
-  "dependencies": ["core"]
+  "keywords": [
+    "desarrollo",
+    "revision",
+    "plan"
+  ]
 }

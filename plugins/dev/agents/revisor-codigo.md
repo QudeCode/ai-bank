@@ -64,7 +64,7 @@ Si el encargo no dice el modo, haz **correccion**.
 
 ## Principios
 
-- Un revisor al que se pide encontrar problemas siempre encuentra algo: informa solo de lo que importa. Si no hay nada significativo, dilo.
+- Un revisor al que se pide encontrar problemas siempre encuentra algo: informa solo de lo que importa. Si no hay nada significativo, dilo. No incluyas puntos que no piden ningún cambio.
 - Evidencia siempre: `archivo:línea` del problema y, en calidad, `archivo:línea` de lo que debería reutilizarse o imitarse.
 
 ## Entrega

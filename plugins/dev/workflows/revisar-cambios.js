@@ -65,7 +65,7 @@ if (faltan.length) log(`Sin resultado de: ${faltan.join(', ')}`)
 
 phase('Consolidar')
 return await agent(
-  `Une estos informes en uno solo, en español, sin añadir hallazgos propios.
+  `Une estos informes en uno solo, en español, sin añadir hallazgos propios y omitiendo los puntos que no piden ningún cambio.
 1. Primero el estado del verificador tal cual (una línea por comprobación y su veredicto). Separa los fallos nuevos de los preexistentes.
 2. Después los hallazgos de los revisores, deduplicados (si dos ven lo mismo, uno solo con la gravedad más alta y quién lo vio), en orden Bloquea → Conviene → Sugerencia. Cada uno con archivo:línea, el problema y el arreglo; los de calidad, marcados ahora o diferir.
 3. Las «Propuestas para el contexto» de todos los agentes, juntas al final, sin perder ninguna ni su marca (generalizable).
