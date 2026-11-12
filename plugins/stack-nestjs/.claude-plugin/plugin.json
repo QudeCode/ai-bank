@@ -1,0 +1,8 @@
+{
+  "name": "stack-nestjs",
+  "version": "0.1.0",
+  "description": "Skills de stack para NestJS, TypeORM y PostgreSQL.",
+  "author": { "name": "QudeCode" },
+  "repository": "https://github.com/QudeCode/ai-bank",
+  "keywords": ["nestjs", "typeorm", "postgresql"]
+}

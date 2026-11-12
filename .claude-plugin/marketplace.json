@@ -1,0 +1,34 @@
+{
+  "name": "ai-bank",
+  "description": "Banco personal de agentes, skills y workflows para Claude Code: lo común vive aquí y lo específico de cada proyecto en su .claude/context/.",
+  "owner": {
+    "name": "QudeCode"
+  },
+  "plugins": [
+    {
+      "name": "core",
+      "source": "./plugins/core",
+      "description": "Base y gestión: orquestación de agentes, inicializar el contexto de un proyecto, retro y promoción de mejoras al banco."
+    },
+    {
+      "name": "dev",
+      "source": "./plugins/dev",
+      "description": "Desarrollo: arquitecto, revisores de plan, código y UX, implementador, verificador, skills de diseño y workflows de revisión."
+    },
+    {
+      "name": "meta",
+      "source": "./plugins/meta",
+      "description": "Meta: diseño del sistema de agentes, guardián de coherencia e investigación de evidencia."
+    },
+    {
+      "name": "stack-nestjs",
+      "source": "./plugins/stack-nestjs",
+      "description": "Conocimiento de stack para backends NestJS con TypeORM y PostgreSQL."
+    },
+    {
+      "name": "stack-react",
+      "source": "./plugins/stack-react",
+      "description": "Conocimiento de stack para frontends React con Vite y CSS propio."
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "name": "core",
+  "version": "0.1.0",
+  "description": "Base y gestión: orquestación de agentes, init-context, retro y promoción de mejoras al banco.",
+  "author": { "name": "QudeCode" },
+  "repository": "https://github.com/QudeCode/ai-bank",
+  "keywords": ["orquestacion", "contexto", "retro"]
+}

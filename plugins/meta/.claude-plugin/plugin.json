@@ -1,0 +1,9 @@
+{
+  "name": "meta",
+  "version": "0.1.0",
+  "description": "Agentes meta: diseño del sistema de agentes, guardián de coherencia e investigación de evidencia.",
+  "author": { "name": "QudeCode" },
+  "repository": "https://github.com/QudeCode/ai-bank",
+  "keywords": ["agentes", "coherencia", "evidencia"],
+  "dependencies": ["core"]
+}
