@@ -1,7 +1,7 @@
 export const meta = {
   name: 'mejorar-arquitectura',
   description: 'Busca oportunidades de profundizar módulos en las zonas calientes del repo, las somete a crítica adversarial y devuelve un informe de candidatos para elegir uno',
-  whenToUse: 'Cuando el código cuesta de cambiar o de probar y quieres candidatos de refactor con argumentos. args opcionales: { foco: "<módulo, carpeta o dolor concreto>", zonas: 4 }.',
+  whenToUse: 'Cuando el código cuesta de cambiar o de probar y quieres candidatos de refactor con argumentos. args opcionales: { foco: "<módulo, carpeta o dolor concreto>", zonas: 4 }. Se lanza con la herramienta Workflow: { name: "dev:mejorar-arquitectura", args }; la herramienta Skill solo devuelve esta instrucción.',
   phases: [
     { title: 'Zonas', detail: 'zonas calientes según git log o el foco dado' },
     { title: 'Explorar', detail: 'un explorador por zona busca módulos superficiales' },
@@ -68,7 +68,7 @@ if (entrada.foco) {
 } else {
   const r = await agent(
     `Encuentra las zonas calientes de este repo para buscar mejoras de arquitectura. Usa git log (p. ej. git log --since="6 months ago" --name-only --pretty=format: | sort | uniq -c | sort -rn | head -60) y agrupa los ficheros más cambiados en hasta ${MAX_ZONAS} zonas coherentes (un módulo, una funcionalidad o una capa). Ignora ficheros generados, lockfiles, migraciones ya aplicadas y documentación. No modifiques nada.`,
-    { label: 'zonas', phase: 'Zonas', schema: ZONAS },
+    { label: 'zonas', phase: 'Zonas', schema: ZONAS, model: 'haiku', effort: 'low' },
   )
   zonas = (r && r.zonas || []).slice(0, MAX_ZONAS)
   if (r && r.zonas && r.zonas.length > MAX_ZONAS) log(`Se exploran ${MAX_ZONAS} de ${r.zonas.length} zonas; pasa args.zonas para más`)
@@ -86,8 +86,8 @@ Busca fricción real:
 - funciones extraídas solo para testear con los bugs en cómo se llaman;
 - módulos acoplados que se filtran a través de sus seams;
 - partes difíciles de probar por su interfaz actual.
-Aplica el test de borrado a cada sospechoso. Devuelve como máximo 3 candidatos, solo los que concentrarían complejidad al profundizar. No modifiques nada.`,
-    { label: `explorar:${zona.nombre}`, phase: 'Explorar', schema: CANDIDATOS },
+Aplica el test de borrado a cada sospechoso. Devuelve como máximo 3 candidatos, solo los que concentrarían complejidad al profundizar. No modifiques nada. Lectura acotada: Grep para localizar y offset/limit en ficheros largos.`,
+    { label: `explorar:${zona.nombre}`, phase: 'Explorar', schema: CANDIDATOS, model: 'sonnet' },
   ),
   (res, zona) => parallel(((res && res.candidatos) || []).map(c => () =>
     agent(
@@ -97,7 +97,7 @@ Aplica el test de borrado a cada sospechoso. Devuelve como máximo 3 candidatos,
 - ¿Es un seam con un único adaptador (hipotético)?
 En caso de duda, sobrevive=false.
 Candidato: ${JSON.stringify(c)}`,
-      { label: `criticar:${c.titulo}`.slice(0, 60), phase: 'Criticar', schema: VEREDICTO },
+      { label: `criticar:${c.titulo}`.slice(0, 60), phase: 'Criticar', schema: VEREDICTO, model: 'opus' },
     ).then(v => v && { ...c, zona: zona.nombre, veredicto: v }),
   )).then(vs => vs.filter(Boolean)),
 )
@@ -117,5 +117,5 @@ Lista al final, en una línea cada uno, los descartados y su motivo.
 
 Candidatos: ${JSON.stringify(sobreviven, null, 1)}
 Descartados: ${JSON.stringify(todos.filter(c => !c.veredicto.sobrevive).map(c => ({ titulo: c.titulo, motivo: c.veredicto.motivo })))}`,
-  { label: 'informe', phase: 'Informe' },
+  { label: 'informe', phase: 'Informe', model: 'sonnet', effort: 'low' },
 )

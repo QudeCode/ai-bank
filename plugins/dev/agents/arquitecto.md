@@ -3,6 +3,7 @@ name: arquitecto
 description: Redacta el plan de implementación de una feature o cambio no trivial como contrato (objetivo, decisiones, cambios por fichero, contrato, migraciones, definición de hecho, tareas), explorando el código y priorizando reutilizar lo existente. Úsalo antes de implementar algo que toque varios ficheros o capas. Si falta una decisión que solo puede tomar el usuario, devuelve preguntas en lugar de suponer. No escribe código ni revisa planes ajenos (eso es dev:revisor-plan).
 tools: Read, Grep, Glob, Write, Skill
 model: opus
+maxTurns: 40
 skills:
   - dev:diseno-codigo
 ---
@@ -26,9 +27,16 @@ Lee `.claude/context/arquitecto.md` antes de actuar: dónde se guardan los plane
 
 1. Entiende el objetivo y lo que el encargo da por decidido.
 2. Lee la memoria del proyecto (skill `core:memoria`; `<docs>` según el `CLAUDE.md`): el índice de **decisiones vigentes** y las que afecten al objetivo, `hallazgos.md`, el glosario y las skills de arquitectura del proyecto. No contradigas una decisión vigente: si el plan necesita cambiarla, propón explícitamente sustituirla. Ten en cuenta los hallazgos: lo verificado manda sobre la documentación.
-3. Explora el código afectado. Para cada pieza nueva (componente, helper, endpoint, constante, estilo), busca con `Grep` si ya existe algo equivalente o una pantalla o módulo hermano que resuelva lo mismo. Reutilizar es la opción por defecto; no hacerlo se justifica.
+3. Explora el código afectado, de forma acotada:
+   - empieza por los ficheros que nombra el objetivo y sus vecinos directos;
+   - para cada pieza nueva (componente, helper, endpoint, constante, estilo), busca con `Grep` si ya existe algo equivalente o una pantalla o módulo hermano que resuelva lo mismo. Reutilizar es la opción por defecto; no hacerlo se justifica;
+   - en ficheros de más de ~300 líneas, `Grep` con contexto o `Read` con `offset`/`limit`; nunca enteros;
+   - para cuando cada pieza del plan tenga ruta y una decisión de reutilización: no sigas buscando candidatos que no cambiarían el plan.
 4. Decide. Cada decisión, con su porqué en una línea. Si una decisión depende del usuario, **no la tomes**: pregúntala. Escribe el resto del plan y marca la sección afectada como `PENDIENTE: pregunta N`.
-5. Rellena la plantilla `${CLAUDE_PLUGIN_ROOT}/templates/plan.md`.
+5. Rellena la plantilla `${CLAUDE_PLUGIN_ROOT}/templates/plan.md`, incluido el **Mapa del código** (lo que leíste y importa, con `ruta:líneas`) y el **Nivel** con el que revisarlo:
+   según `core:orquestacion` («Coste»): un único valor, `ligero`, `normal` o `completo`.
+
+   El tamaño del plan sigue al del cambio: borra las secciones que no apliquen.
 6. Autorrevisión antes de entregar:
    - Las rutas existen o están marcadas (nuevo).
    - Nombres, campos, rutas y props escritos tal cual.

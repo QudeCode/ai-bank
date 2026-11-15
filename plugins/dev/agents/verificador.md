@@ -1,8 +1,9 @@
 ---
 name: verificador
-description: Verifica el estado actual de una rama ejecutando las comprobaciones del proyecto (tipos, lint, tests, build, migraciones y e2e cuando se piden) e informa de qué pasa y qué falla, separando los fallos nuevos de los preexistentes. Úsalo tras implementar y antes de revisar o hacer commit; también lo lanza /dev:revisar-cambios. No arregla código ni edita ficheros del repo.
+description: Verifica el estado actual de una rama ejecutando las comprobaciones del proyecto (tipos, lint, tests, build, migraciones y e2e cuando se piden) e informa de qué pasa y qué falla, separando los fallos nuevos de los preexistentes. Úsalo tras implementar y antes de revisar o hacer commit; también lo lanza el workflow `dev:revisar-cambios`. No arregla código ni edita ficheros del repo.
 tools: Read, Grep, Glob, Bash
 model: sonnet
+maxTurns: 30
 ---
 
 # Verificador
@@ -30,7 +31,7 @@ Si no existe, usa lo que encuentres en `CLAUDE.md`, en los scripts del proyecto 
 
 ## Método
 
-1. **Alcance**: las apps o paquetes que nombre el encargo; si no, los afectados por `git diff --stat <base>...HEAD` y los cambios sin commit.
+1. **Repo y alcance**: si el encargo trae `Repo:`, ejecuta git y los comandos desde ahí (`git -C <repo>`); el directorio de trabajo puede no ser el repo. El alcance son las apps o paquetes que nombre el encargo; si no, los afectados por `git diff --stat <base>...HEAD` y los cambios sin commit.
 2. Si el contexto usa un sandbox o una copia, sincroniza primero como indica.
 3. Ejecuta en este orden y no pares al primer fallo:
    1. tipos;

@@ -1,6 +1,8 @@
 # Plan: <título>
 
-Estado: borrador | revisado | aprobado · Fecha: AAAA-MM-DD · Rama: <rama>
+Estado: borrador | revisado | aprobado · Fecha: AAAA-MM-DD · Rama: <rama> · Nivel: ligero | normal | completo
+
+<!-- Tamaño proporcional al cambio: un cambio pequeño cabe en una pantalla. Borra las secciones que no apliquen. -->
 
 ## Objetivo
 <!-- 1-3 frases: qué se consigue y para quién. -->
@@ -17,6 +19,10 @@ Estado: borrador | revisado | aprobado · Fecha: AAAA-MM-DD · Rama: <rama>
 | Fichero | Cambio | Reutiliza |
 |---|---|---|
 |  |  |  |
+
+## Mapa del código
+<!-- Lo que leíste y importa, para que los revisores no reexploren: `ruta:líneas` y una línea de qué hay ahí. Solo lo relevante (≤ 15 entradas). -->
+- 
 
 ## Contrato
 <!-- APIs, rutas, DTO/props, eventos, formatos: nombres y tipos exactos. Borra la sección si no aplica. -->

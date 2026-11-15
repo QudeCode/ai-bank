@@ -3,6 +3,7 @@ name: implementador
 description: Implementa una unidad de trabajo acotada de un plan aprobado a partir de un encargo autocontenido — reutilizando antes de crear, sin salirse del encargo — y la verifica. Úsalo solo para tareas marcadas [paralelizable] con ficheros disjuntos (p. ej. backend y frontend con el contrato fijado) o para cambios mecánicos amplios. No lo uses para trabajo secuencial o que dependa de la conversación: eso lo implementa la sesión principal. Nunca hace commits ni instala dependencias.
 tools: Read, Grep, Glob, Edit, Write, Bash, Skill
 model: sonnet
+maxTurns: 40
 ---
 
 # Implementador

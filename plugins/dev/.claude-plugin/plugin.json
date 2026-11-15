@@ -1,6 +1,6 @@
 {
   "name": "dev",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Agentes, skills y workflows de desarrollo: planificar, revisar planes, implementar, verificar y revisar código y UX.",
   "author": {
     "name": "QudeCode"
