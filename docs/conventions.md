@@ -26,7 +26,7 @@ Frontmatter:
 - `name`: igual al nombre del fichero, en kebab-case y en español.
 - `description`: un disparador. Dice cuándo usarlo, cuándo **no** y en qué se diferencia de su vecino más parecido.
 - `tools`: las mínimas. Los que solo revisan o proponen: `Read, Grep, Glob` (+ `Skill`, `WebSearch`, `WebFetch` si les hace falta). **Sin Bash ni escritura**: el solo lectura se impone con herramientas, porque los agentes de plugin ignoran `permissionMode` y `hooks`.
-- `model`: siempre fijado, nunca `inherit`. `opus` para decidir, planificar y revisar; `sonnet` para lo mecánico; `haiku` para recolectar datos simples.
+- `model`: siempre fijado, nunca `inherit`. `opus` para decidir, planificar y el juicio crítico (corrección, adversario); `sonnet` para la revisión secundaria (calidad, UX) y lo mecánico; `haiku` para recolectar datos simples.
 - `skills`: solo las que necesita siempre, con prefijo (`dev:diseno-codigo`). Las condicionales se cargan con la herramienta Skill.
 
 Cuerpo, en este orden:
@@ -55,6 +55,29 @@ El criterio vive en las skills: un agente carga la skill, no copia su método. U
 - Solo tramos automáticos: un workflow no puede preguntar a mitad. Las aprobaciones se quedan en la sesión.
 - Usan los agentes del banco con `agentType: '<plugin>:<agente>'`. Así su método vive en un solo sitio.
 - Entrada por `args`, con un preparador si falta. No callan lo que dejan fuera: lo dicen con `log()`.
+- Cómo se lanzan: `core:orquestacion`, «Lanzar workflows». En el texto que lee el modelo (descripciones, skills, prompts) se nombran sin barra («el workflow `dev:revisar-cambios`»); la forma `/dev:revisar-cambios` queda para la documentación de usuario.
+- Cumplen la sección **Coste proporcional**.
+
+## Coste proporcional
+
+El banco rinde por tarea, no a cualquier precio: el gasto sigue al tamaño y al riesgo del cambio.
+
+- **Cada `agent()` de un workflow fija `model`**, salvo los que usan `agentType` y aceptan el modelo del frontmatter de ese agente. Sin `model` ni `agentType`, la llamada hereda el modelo de la sesión; `opts.model` manda sobre el del agente.
+
+  | Tarea | `model` | `effort` |
+  |---|---|---|
+  | Preparar entradas, inventariar, recolectar (diff, zonas, rutas) | `haiku` | `low` |
+  | Consolidar o redactar a partir de resultados ya hechos | `sonnet` | `low` |
+  | Revisión secundaria (calidad, UX, reutilización, concreción, explicar) | `sonnet` | — |
+  | Juicio crítico (corrección, adversario, plan, crítica de candidatos) | `opus` | — |
+
+- **Niveles** `ligero | normal | completo` en los workflows de revisión. La definición vive en `core:orquestacion`, «Coste» (es lo que se instala con los plugins). Los workflows no pueden leer una skill: la copian literal con el comentario `// Niveles: copia literal de core:orquestacion «Coste»`, y la comprueban en código (lo de `completo` nunca se rebaja, aunque llegue `args.nivel`). El resto de piezas la enlazan.
+- **Entradas preparadas**: los revisores parten del diff, del plan y de su «Mapa del código»; exploran solo para confirmar o refutar.
+- **Lectura acotada**: cada turno reenvía todo lo leído, así que un fichero grande leído entero se paga en todos los turnos siguientes. Los agentes que exploran buscan con `Grep` (con contexto) y leen con `offset`/`limit` los ficheros largos (más de ~300 líneas); lo dice su método.
+- **Roles excluyentes**: cada modo o rol dice qué no le toca, para no pagar dos veces el mismo hallazgo.
+- **Agrupar** elementos pequeños (ficheros de contexto, memoria) en pocos agentes, no uno por elemento.
+- Los agentes que exploran llevan `maxTurns` en el frontmatter como tope de seguridad.
+- El workflow dice con `log()` el nivel usado y lo que dejó fuera.
 
 ## Evals (`plugins/<p>/evals/<caso>/`)
 

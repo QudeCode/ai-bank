@@ -49,7 +49,7 @@ Las preferencias personales siguen en la auto memory de Claude (local). Los agen
    ```
 
    Si no tienes el banco clonado, crea a mano `.claude/settings.json` con el contenido de `templates/project/.claude/settings.json`.
-2. Ajusta `enabledPlugins` en `.claude/settings.json`. Activa `stack-nestjs` o `stack-react` si el proyecto los usa.
+2. Ajusta `enabledPlugins` en `.claude/settings.json`. Activa `stack-nestjs` o `stack-react` si el proyecto los usa. Mantén `"enableWorkflows": true`: en algunos planes (p. ej. Pro) los workflows vienen desactivados y, sin ese ajuste, los workflows del banco no existen. Añade un `deny` de lectura por cada `.env` real si no están en la raíz (`Read(./app/.env)`).
 3. Abre Claude Code en el proyecto y **acepta la confianza de la carpeta**: sin ella, el marketplace del proyecto se ignora.
 4. Instala los plugins una vez por persona (`enabledPlugins` los activa, pero no los instala):
 
@@ -81,7 +81,11 @@ proyectos ─ autoUpdate ─► reciben la mejora
 
 - **Específico**: lo mejoran los propios agentes al trabajar, con tu aprobación, y `/core:retro` al cerrar.
 - **Común**: solo cambia en este repo. `/core:promocionar` acepta propuestas vistas en ≥2 proyectos o que documentan un fallo real, las convierte en evals para que no vuelvan a fallar, sube la versión y cierra el issue.
-- **Auditoría**: `/meta:auditar-proyecto` detecta contexto desactualizado, duplicado o falso frente al código.
+- **Auditoría**: `/meta:auditar-proyecto` detecta contexto, memoria y skills del proyecto desactualizados, duplicados o falsos frente al código.
+
+## Coste
+
+El gasto sigue al tamaño y al riesgo del cambio: cada agente de un workflow tiene su modelo fijado y los workflows de revisión trabajan por niveles (`ligero`, `normal`, `completo`). Reglas en `docs/conventions.md` («Coste proporcional»); definición de los niveles en la skill `core:orquestacion` («Coste»).
 
 Preparación del repo del banco (una vez): `gh label create propuesta --repo QudeCode/ai-bank --description "Propuesta de mejora desde un proyecto"`.
 
