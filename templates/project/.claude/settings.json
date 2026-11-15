@@ -1,4 +1,5 @@
 {
+  "enableWorkflows": true,
   "extraKnownMarketplaces": {
     "ai-bank": {
       "source": {

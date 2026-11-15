@@ -30,15 +30,34 @@ No delegues:
 0. **Retomar o empezar.** Si el trabajo viene de otra sesión: `/core:retomar <ticket>`. Las decisiones vigentes y los hallazgos (`core:memoria`) son parte del contexto de cualquier plan.
 1. **Entender.** Si hay que leer mucho código, delega la exploración.
 2. **Plan.** `dev:arquitecto` redacta el plan como contrato. Si devuelve «Preguntas», házselas al usuario todas juntas y **continúa el mismo agente** con las respuestas, sin lanzar uno nuevo.
-3. **Revisar el plan.** `/dev:revisar-plan <ruta>` (los cuatro roles en paralelo) o `dev:revisor-plan` con un rol. Corrige el plan con los hallazgos.
+3. **Revisar el plan.** El workflow `dev:revisar-plan` con `{ plan, nivel }` o, si el plan es `ligero`, un revisor directo (ver Coste). Corrige el plan con los hallazgos.
 4. **Aprobación del usuario** del plan.
 5. **Implementar.** Por defecto, en la sesión principal. Usa `dev:implementador` solo para tareas del plan marcadas como paralelizables.
-6. **Verificar y revisar.** `/dev:revisar-cambios` o, a mano, `dev:verificador` + `dev:revisor-codigo` (`correccion` y `calidad`) + `dev:revisor-ux` si toca UI, en paralelo.
+6. **Verificar y revisar.** El workflow `dev:revisar-cambios` con `{ base, plan, nivel }` o, si no hay workflows, a mano en paralelo: `dev:verificador` + `dev:revisor-codigo` en `correccion` (+ `calidad` si no es `ligero`) + `dev:revisor-ux` si toca UI.
 7. **Corregir** lo que bloquea y volver a verificar.
 8. **Commit** según la política del `CLAUDE.md` del proyecto, incluida la de autoría (si prohíbe mencionar herramientas de IA, nada de atribuciones en commits, código ni ramas). Los subagentes nunca hacen commit.
 9. **Pausa:** `/core:traspaso` deja nota, hallazgos y decisiones listos para otro chat. **Cierre de la feature:** `/core:retro`, que incluye el traspaso.
 
 Un workflow no puede pararse a preguntar: úsalo para tramos automáticos (revisar, auditar), no para lo que necesita aprobación.
+
+## Lanzar workflows
+
+- Con la herramienta `Workflow` y el nombre del plugin: `{ name: "dev:revisar-plan", args: { plan: "<ruta>" } }`.
+- Aparecen en la lista de `Skill`, pero `Skill` no los ejecuta: solo devuelve la instrucción («Invoke: Workflow(…)»). Si llamaste a `Skill`, sigue con `Workflow`; no repitas `Skill`.
+- No con `scriptPath` a la carpeta del plugin: la ruta cambia según la instalación.
+- Si `Workflow` no existe en la sesión, faltan los workflows en los ajustes (`"enableWorkflows": true`): díselo al usuario y, mientras, usa la vía a mano de los pasos 3 y 6.
+
+## Coste
+
+Cada agente paga su propia lectura del código. Antes de delegar:
+- **Niveles** de los workflows de revisión (fuente única; los workflows la copian):
+  - `completo`: toca autenticación, permisos, seguridad, migraciones o esquema de datos, el contrato entre capas, o crea un módulo;
+  - `ligero`: hasta ~150 líneas en una sola capa y nada de lo anterior;
+  - `normal`: el resto.
+- Pasa `nivel` si ya conoces el cambio; si no, lo decide el workflow. Lo de `completo` nunca se rebaja.
+- **Cambio `ligero`**: basta un revisor directo (`dev:revisor-codigo` en `correccion`; para un plan, `dev:revisor-plan` en rol «adversario, incluyendo concrecion»), o el workflow con `nivel: "ligero"`.
+- **Encargos con entradas**: pasa rutas, el plan y su «Mapa del código» para que el agente no reexplore.
+- No relances un workflow entero para comprobar un arreglo puntual: un revisor directo en el modo que lo detectó.
 
 ## Escribir un encargo
 
@@ -55,11 +74,11 @@ No copies el `CLAUDE.md` ni el contexto del proyecto: el agente ya los lee.
 ### Diff para revisores (no tienen Bash)
 
 ```bash
-git diff <base>...HEAD > "$TMP/diff.patch"; git diff >> "$TMP/diff.patch"
-git diff --stat <base>...HEAD > "$TMP/diff.stat"
+git diff <base>...HEAD > "$D/diff.patch"; git diff >> "$D/diff.patch"
+git diff --stat <base>...HEAD > "$D/diff.stat"
 ```
 
-`$TMP` es el scratchpad de la sesión o un directorio temporal fuera del repo. La rama base está en el contexto del proyecto; si no, pregúntala. Pasa las rutas en el encargo. Para revisar la salida de validadores o tests, guárdala igual en un fichero.
+`$D`, por orden: el scratchpad de la sesión; un directorio de `mktemp -d`; o, si no se puede escribir fuera, `.revisar-cambios/` en el directorio de trabajo (bórralo después y no lo incluyas en el commit). Nunca dentro de `.git/` ni de `.claude/`: son rutas protegidas. La rama base está en el contexto del proyecto; si no, pregúntala. Pasa las rutas en el encargo. Para revisar la salida de validadores o tests, guárdala igual en un fichero.
 
 ## Al recibir resultados
 
@@ -76,4 +95,4 @@ Cada agente del banco lee `.claude/context/<agente>.md`. Si un agente informa de
 
 - Los agentes de plugin ignoran `permissionMode` y `hooks`. El «solo lectura» lo imponen sus `tools`. Por eso los revisores necesitan el diff en un fichero.
 - Un subagente no hereda lo hablado en la conversación: lo que no esté en el encargo no existe para él.
-- Los workflows cuentan tokens de cada agente que lanzan. Para cambios pequeños, un revisor directo basta.
+- Si el repo git es una subcarpeta del workspace, cada encargo que use git lleva la ruta del repo (`Repo: <ruta>`): el agente arranca en la raíz del workspace, que no es un repo.
