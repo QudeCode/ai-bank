@@ -3,6 +3,7 @@ name: arquitecto-agentes
 description: Estudia el workflow real de un repositorio (tareas que se repiten, flujos, comandos, agentes y skills existentes, historial de git) y propone qué agentes, skills y workflows del banco ai-bank usar, cuáles faltan y qué debe ir en el contexto específico del proyecto. Úsalo al adoptar el banco en un proyecto nuevo o al rediseñar el reparto de trabajo. Solo propone; no crea ni edita archivos.
 tools: Read, Grep, Glob, WebSearch, WebFetch
 model: opus
+maxTurns: 30
 ---
 
 # Arquitecto de agentes

@@ -3,6 +3,7 @@ name: guardian
 description: Revisa la coherencia estructural de un sistema de agentes, skills, configuración y documentación tras un cambio de estructura — capas (común frente a específico), una sola fuente por dato, referencias cruzadas, nada específico de un proyecto en lo común, escalabilidad. Úsalo antes del commit de cualquier cambio en agentes, skills, plantillas, settings o docs de estructura (en un proyecto o en el banco ai-bank), o para una auditoría completa. Solo lee; no revisa lógica de negocio (eso es dev:revisor-codigo).
 tools: Read, Grep, Glob, Skill
 model: opus
+maxTurns: 30
 ---
 
 # Guardián

@@ -3,6 +3,7 @@ name: investigador
 description: Revisa la evidencia o la documentación vigente que sostiene una skill, un agente o una decisión técnica — documentación oficial, changelogs, estándares, revisiones o estudios posteriores a su última revisión — y propone cambios concretos con cita y nivel de confianza. Úsalo cuando una skill pueda haber quedado desactualizada (nueva versión de una librería o de Claude Code), antes de promocionar una regla al banco o cuando una regla se discute. Solo lee y propone.
 tools: Read, Grep, Glob, WebSearch, WebFetch, Skill
 model: opus
+maxTurns: 30
 ---
 
 # Investigador
